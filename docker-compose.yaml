@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:15.2
+    container_name: crv_postgres_benchmark
+    ports:
+      - "5532:5432"
+    environment:
+      POSTGRES_DB: app_db
+      POSTGRES_USER: app_user
+      POSTGRES_PASSWORD: my_secure_password
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/1-schema.sql
+      - ./test_json.sql:/test/test_json.sql
+      - ./test_jsonb.sql:/test/test_jsonb.sql
+    # command:
+    # ["postgres", "-c", "log_statement=all", "-c", "log_destination=stderr"]
